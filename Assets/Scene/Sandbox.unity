@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0805b7d5dfe1468ebd6d35c63c749a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airResistance: 0.03
-  stopThreshold: 0.0001
+  airResistance: 5
+  stopThreshold: 0.001
 --- !u!4 &555804727
 Transform:
   m_ObjectHideFlags: 0
@@ -263,6 +263,7 @@ GameObject:
   - 92: {fileID: 1209558864}
   - 124: {fileID: 1209558863}
   - 81: {fileID: 1209558862}
+  - 114: {fileID: 1209558867}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -338,6 +339,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1898539773}
   m_RootOrder: 1
+--- !u!114 &1209558867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1209558861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e50786fc903843c1bd01657b26961a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AccelerationV: 0.5
+  DistanceFromPlayer: 3
+  player: {fileID: 1898539769}
 --- !u!1 &1527864488
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,11 +516,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130cf8ae61adb471f847cb9a68f76cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpinHSpeed: 10
-  Acceleration: 1
-  AirResistance: 0.1
-  MaxSpeed: 3
-  StopThreshold: 0.0001
+  SpinHSpeed: 50
+  MaxForwardSpeed: 10
+  MaxTranslationSpeed: 3
+  Acceleration: 12000
 --- !u!54 &1898539775
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -516,8 +530,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

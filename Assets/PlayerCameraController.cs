@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerCameraController : CustomizedMonoBehavior
 {
 	public float AccelerationV = 0.5f;
+	public float DistanceFromPlayer = 3.0f;
 
 	public GameObject player;
 
@@ -22,7 +23,6 @@ public class PlayerCameraController : CustomizedMonoBehavior
 		}
 
 		Transform parentTrans = player.transform;
-		float rotRadius = 2.0f;
 
 		// Vertical angle
 		float dir = Input.GetAxisRaw("Vertical");
@@ -41,7 +41,7 @@ public class PlayerCameraController : CustomizedMonoBehavior
 		positionV = (2.0f < positionV) ? 2.0f : positionV;
 		positionV = (-2.0f > positionV) ? -2.0f : positionV;
 
-		transform.position = parentTrans.position - parentTrans.forward * rotRadius;
+		transform.position = parentTrans.position - parentTrans.forward * DistanceFromPlayer;
 		transform.LookAt(parentTrans);
 		transform.Translate(0.0f, positionV, 0.0f);
 		transform.LookAt(parentTrans);

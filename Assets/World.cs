@@ -3,9 +3,17 @@
 public class World : SingletonMonoBehaviour<World>
 {
 	[SerializeField]
-	private float airResistance = 0.03f;
+	private float airResistance = 5.0f;
+	public float AirResistance {
+		get { return this.airResistance; }
+		set { this.airResistance = value; }
+	}
 	[SerializeField]
-	private float stopThreshold = 0.0001f;
+	private float stopThreshold = 0.001f;
+	public float StopThreshold {
+		get { return this.stopThreshold; }
+		set { this.stopThreshold = value; }
+	}
 
 	public void Awake()
 	{
@@ -15,8 +23,4 @@ public class World : SingletonMonoBehaviour<World>
 		}
 		DontDestroyOnLoad(this.gameObject);
 	}
-
-	public float AirResistance { get; set; }
-	public float StopThreshold { get; set; }
-
 }

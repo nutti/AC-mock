@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCameraController : MonoBehaviour
+public class PlayerCameraController : CustomizedMonoBehavior
 {
-	public static float PI = 3.1415926535f;
-
 	public float AccelerationV = 0.5f;
 
 	public GameObject player;
@@ -20,6 +18,7 @@ public class PlayerCameraController : MonoBehaviour
 	{
 		if (!player) {
 			Debug.LogWarning("Player must be set to use this script");
+			return;
 		}
 
 		Transform parentTrans = player.transform;

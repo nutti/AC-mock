@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class World : MonoBehaviour
+public class World : SingletonMonoBehaviour<World>
 {
-	public float AirResistance = 0.03f;
-	public float StopThreshold = 0.0001f;
+	[SerializeField]
+	private float airResistance = 0.03f;
+	[SerializeField]
+	private float stopThreshold = 0.0001f;
 
-	void Start ()
+	public void Awake()
 	{
+		if (this != Instance) {
+			Destroy(this);
+			return;
+		}
+		DontDestroyOnLoad(this.gameObject);
 	}
 
-	void Update()
-	{
-	}
+	public float AirResistance { get; set; }
+	public float StopThreshold { get; set; }
+
 }

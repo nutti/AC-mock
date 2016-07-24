@@ -1,30 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CustomizedMonoBehavior
 {
 	public float SpinHSpeed = 50.0f;
-	public float Acceleration = 13.0f;
-	public float AirResistance = 0.03f;
-	public float MaxSpeed = 5.0f;
-	public float StopThreshold = 0.0001f;
+	public float MaxForwardSpeed = 5.0f;
 
 	private World world;
-	private float speed = 0.0f;
+	private float forwardSpeed = 0.0f;
 
 	void Start ()
 	{
-		world = GameObject.Find("World").GetComponent<World>();
+		world = World.Instance;
 	}
 
-	private void updateSpeed()
+	private void updateForwardSpeed()
 	{
 		if (Input.GetAxisRaw("Booster") > 0) {
-			speed += Acceleration * Time.deltaTime;
+			forwardSpeed += Acceleration * Time.deltaTime;
 		}
-		speed -= world.AirResistance * speed;
-		speed = (MaxSpeed < speed) ? MaxSpeed : speed;
-		speed = (speed < world.StopThreshold) ? 0.0f : speed;
+		forwardSpeed -= world.AirResistance * forwardSpeed;
+		forwardSpeed = (MaxForwardSpeed < forwardSpeed) ? MaxForwardSpeed : forwardSpeed;
+		forwardSpeed = (forwardSpeed < world.StopThreshold) ? 0.0f : forwardSpeed;
 	}
 
 	private void updateTransform()
@@ -44,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		updateSpeed();
+		updateForwardSpeed();
 		updateTransform();
 	}
 }

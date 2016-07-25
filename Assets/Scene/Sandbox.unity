@@ -519,7 +519,8 @@ MonoBehaviour:
   SpinHSpeed: 50
   MaxForwardSpeed: 10
   MaxTranslationSpeed: 3
-  Acceleration: 12000
+  Acceleration: 100
+  QBCoolTime: 0.8
 --- !u!54 &1898539775
 Rigidbody:
   m_ObjectHideFlags: 0

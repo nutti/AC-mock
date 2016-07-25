@@ -84,11 +84,21 @@ public class PlayerController : CustomizedMonoBehavior
         restTimeQB -= Time.deltaTime;
     }
 
+    public float Speed()
+    {
+        return Mathf.Sqrt(translationSpeed * translationSpeed + forwardSpeed * forwardSpeed);
+    }
+
     void Update()
     {
         updateForwardSpeed();
         updateTranslationSpeed();
         updateTransform();
         updateCoolTime();
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 200, 50), string.Format("Player Speed: {0}", Speed()));
     }
 }

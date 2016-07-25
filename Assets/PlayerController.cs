@@ -24,14 +24,16 @@ public class PlayerController : CustomizedMonoBehavior
 	private void updateForwardSpeed()
 	{
 		float dir = Input.GetAxisRaw("Move Forward");
-		forwardSpeed += Acceleration * Time.deltaTime * dir / 100.0f;
-		if (Input.GetAxisRaw("Booster") > 0) {
-			forwardSpeed += Acceleration * Time.deltaTime * dir;
-		}
-		if (Input.GetAxisRaw("Quick Booster") > 0) {
-			if (restTimeQB < 0.0f) {
-				forwardSpeed += Acceleration * 100.0f * Time.deltaTime * dir;
-				restTimeQB = QBCoolTime;
+		if (Mathf.Abs(dir) > 0.001) {
+			forwardSpeed += Acceleration * Time.deltaTime * dir / 100.0f;
+			if (Input.GetAxisRaw("Booster") > 0) {
+				forwardSpeed += Acceleration * Time.deltaTime * dir;
+			}
+			if (Input.GetAxisRaw("Quick Booster") > 0) {
+				if (restTimeQB < 0.0f) {
+					forwardSpeed += Acceleration * 100.0f * Time.deltaTime * dir;
+					restTimeQB = QBCoolTime;
+				}
 			}
 		}
 		if (forwardSpeed > 0.0f) {
@@ -46,15 +48,26 @@ public class PlayerController : CustomizedMonoBehavior
 
 	private void updateTranslationSpeed()
 	{
-		translationSpeed = Input.GetAxisRaw("Move Translation") * MaxTranslationSpeed;
+		float dir = Input.GetAxisRaw("Move Translation");
+		if (Mathf.Abs(dir) > 0.001) {
+			translationSpeed += Acceleration * Time.deltaTime * dir / 100.0f;
+			if (Input.GetAxisRaw("Booster") > 0) {
+				translationSpeed += Acceleration * Time.deltaTime * dir;
+			}
+			if (Input.GetAxisRaw("Quick Booster") > 0) {
+				if (restTimeQB < 0.0f) {
+					translationSpeed += Acceleration * 100.0f * Time.deltaTime * dir;
+					restTimeQB = QBCoolTime;
+				}
+			}
+		}
+
 		if (translationSpeed > 0.0f) {
 			translationSpeed -= world.AirResistance * translationSpeed * Time.deltaTime;
-			translationSpeed = Mathf.Min(MaxTranslationSpeed, translationSpeed);
 			translationSpeed = (translationSpeed < world.StopThreshold) ? 0.0f : translationSpeed;
 		}
 		else if (translationSpeed < 0.0f) {
 			translationSpeed -= world.AirResistance * translationSpeed * Time.deltaTime;
-			translationSpeed = Mathf.Max(-MaxTranslationSpeed, translationSpeed);
 			translationSpeed = (translationSpeed > -world.StopThreshold) ? 0.0f : translationSpeed;
 		}
 	}
@@ -63,7 +76,7 @@ public class PlayerController : CustomizedMonoBehavior
 	{
 		float spinHAngle = Input.GetAxisRaw("Camera Horizontal") * Time.deltaTime * SpinHSpeed;
 		transform.Rotate(0, spinHAngle, 0);
-		transform.Translate(translationSpeed, 0, forwardSpeed * Time.deltaTime);
+		transform.Translate(translationSpeed * Time.deltaTime, 0, forwardSpeed * Time.deltaTime);
 	}
 
 	private void updateCoolTime()

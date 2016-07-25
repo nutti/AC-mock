@@ -29,12 +29,7 @@ public class PlayerController : CustomizedMonoBehavior
 
 	private void updateTranslationSpeed()
 	{
-		if (Input.GetAxisRaw("Translation Left") > 0.0f) {
-			translationSpeed = -1.0f * MaxTranslationSpeed;
-		}
-		else if (Input.GetAxisRaw("Translation Right") > 0.0f) {
-			translationSpeed = 1.0f * MaxTranslationSpeed;
-		}
+		translationSpeed = Input.GetAxisRaw("Move Translation") * MaxTranslationSpeed;
 		if (translationSpeed > 0.0f) {
 			translationSpeed -= world.AirResistance * translationSpeed * Time.deltaTime;
 			translationSpeed = Mathf.Min(MaxTranslationSpeed, translationSpeed);
@@ -49,7 +44,7 @@ public class PlayerController : CustomizedMonoBehavior
 
 	private void updateTransform()
 	{
-		float spinHAngle = Input.GetAxisRaw("Horizontal") * Time.deltaTime * SpinHSpeed;
+		float spinHAngle = Input.GetAxisRaw("Camera Horizontal") * Time.deltaTime * SpinHSpeed;
 		transform.Rotate(0, spinHAngle, 0);
 		transform.Translate(translationSpeed, 0, forwardSpeed * Time.deltaTime);
 	}

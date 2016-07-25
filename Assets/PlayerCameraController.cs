@@ -25,7 +25,7 @@ public class PlayerCameraController : CustomizedMonoBehavior
 		Transform parentTrans = player.transform;
 
 		// Vertical angle
-		float dir = Input.GetAxisRaw("Vertical");
+		float dir = Input.GetAxisRaw("Camera Vertical");
 		if (dir > 0.1f) {
 			speedV += AccelerationV * Time.deltaTime;
 		}
